@@ -1,0 +1,290 @@
+# ============================================================
+#  NereusThrone  |  Developer: naook1/adityap
+#  Teks GUI otomatis jadi small caps (small-caps.gui: true).
+#  Matikan jika ingin tulis manual / pakai font biasa.
+#  Warna: &a, &l, hex &#RRGGBB. Placeholder PAPI didukung di pesan join/leave.
+# ============================================================
+settings:
+  prefix: "&#7FDBFF&lNEREUS &8» &r"
+
+small-caps:
+  gui: true        # judul menu, nama item, lore
+  messages: false  # pesan chat
+
+placeholders:
+  afk-tag: "&7[AFK]"   # %nereus_afk%
+
+# ---------------- JOIN / LEAVE ----------------
+# Permission otomatis: nereus.join.<id> / nereus.leave.<id>  (atur lewat LuckPerms)
+# Contoh: /lp group vip permission set nereus.join.vip true
+# Bisa override dengan "permission: ..." ; kosongkan ("") = semua orang boleh.
+join-leave:
+  enabled: true
+
+join-styles:
+  default:
+    name: "&7Default"
+    material: PAPER
+    description: ["&7Pesan join standar."]
+    message: "&8[&a+&8] &f{player} &7bergabung."
+    sound: ""
+  vip:
+    name: "&aVIP Arrival"
+    material: EMERALD
+    description: ["&7Khusus rank &aVIP&7+"]
+    message: "&8[&a+&8] &a✦ %luckperms_prefix%&f{player} &7telah tiba!"
+    sound: "entity.experience_orb.pickup"
+  elite:
+    name: "&bElite Entrance"
+    material: DIAMOND
+    description: ["&7Khusus rank &bElite&7+"]
+    message: "&8[&b+&8] &b❖ &#7FDBFF{player} &bmemasuki Nereus dengan gagah!"
+    sound: "entity.player.levelup"
+  kaiser:
+    name: "&6Kaiser Descent"
+    material: GOLDEN_HELMET
+    description: ["&7Khusus rank &6Kaiser"]
+    message: "&6&l⚜ &e&lKAISER &6{player} &etelah turun ke Nereus! &6&l⚜"
+    sound: "ui.toast.challenge_complete"
+  emperor:
+    name: "&d&lEmperor Throne"
+    material: NETHERITE_HELMET
+    description: ["&7Khusus rank &dEmperor"]
+    message: "&5&l♛ &d&lEMPEROR &f{player} &dbangkit dari singgasana! &5&l♛"
+    sound: "entity.ender_dragon.growl"
+
+leave-styles:
+  default:
+    name: "&7Default"
+    material: PAPER
+    description: ["&7Pesan leave standar."]
+    message: "&8[&c-&8] &f{player} &7keluar."
+    sound: ""
+  vip:
+    name: "&aVIP Farewell"
+    material: EMERALD
+    description: ["&7Khusus rank &aVIP&7+"]
+    message: "&8[&c-&8] &a✦ %luckperms_prefix%&f{player} &7pamit. Sampai jumpa!"
+    sound: ""
+  elite:
+    name: "&bElite Exit"
+    material: DIAMOND
+    description: ["&7Khusus rank &bElite&7+"]
+    message: "&8[&c-&8] &b❖ &#7FDBFF{player} &bmeninggalkan Nereus."
+    sound: ""
+  kaiser:
+    name: "&6Kaiser Retreat"
+    material: GOLDEN_HELMET
+    description: ["&7Khusus rank &6Kaiser"]
+    message: "&6&l⚜ &e&lKAISER &6{player} &emundur dari medan laga. &6&l⚜"
+    sound: ""
+  emperor:
+    name: "&d&lEmperor Vanish"
+    material: NETHERITE_HELMET
+    description: ["&7Khusus rank &dEmperor"]
+    message: "&5&l♛ &d&lEMPEROR &f{player} &dkembali ke kegelapan. &5&l♛"
+    sound: "entity.wither.spawn"
+
+# ---------------- AFK ----------------
+afk:
+  auto-afk-seconds: 300     # 0 = nonaktif auto AFK
+  broadcast: true
+  default-reason: "AFK"
+  reward:
+    enabled: true
+    permission: ""          # kosong = semua pemain AFK dapat reward
+    interval-minutes: 5     # reward tiap 5 menit AFK
+    max-per-session: 0      # 0 = tak terbatas (isi mis. 12 untuk batasi)
+    disabled-worlds: []
+    money:                  # uang naik bertahap: base + (tahap-1)*increment, max cap
+      base: 1000
+      increment: 250
+      max: 5000
+    key:                    # tiap tahap, ada peluang dapat key (kalau gagal -> uang)
+      enabled: true
+      chance: 20            # persen
+      # SESUAIKAN dengan command CrazyCrates di servermu!
+      command: "crazycrates give virtual {crate} 1 {player}"
+      pool:                 # nama crate : bobot (rate)
+        common: 60
+        rare: 30
+        epic: 10
+
+# ---------------- DAILY ----------------
+daily:
+  cooldown-hours: 24
+  streak-reset-hours: 48    # lewat ini streak balik ke hari 1
+  rewards:
+    1: {display: "$2.000", icon: CHEST, money: 2000, commands: []}
+    2: {display: "$3.000", icon: CHEST, money: 3000, commands: []}
+    3: {display: "$4.000 + Key common", icon: CHEST, money: 4000, commands: ["crazycrates give virtual common 1 {player}"]}
+    4: {display: "$5.000", icon: CHEST, money: 5000, commands: []}
+    5: {display: "$6.000 + Key rare", icon: ENDER_CHEST, money: 6000, commands: ["crazycrates give virtual rare 1 {player}"]}
+    6: {display: "$8.000", icon: ENDER_CHEST, money: 8000, commands: []}
+    7: {display: "$15.000 + Key epic", icon: SHULKER_BOX, money: 15000, commands: ["crazycrates give virtual epic 1 {player}"]}
+
+# ---------------- KITS ----------------
+kits:
+  playerkits:
+    enabled: true
+    command: "kit"          # command PlayerKits2 yang membuka menu kit
+    material: CHEST
+    name: "&6PlayerKits"
+    lore: ["&7Buka menu kit utama server.", "&7(dikelola oleh PlayerKits2)"]
+  list:                     # kit tambahan khas Nereus
+    starter:
+      name: "&aNereus Starter"
+      material: IRON_SWORD
+      permission: ""
+      cooldown: 86400
+      lore: ["&7Paket awal untuk petualang."]
+      commands: ["give {player} bread 16", "give {player} iron_sword 1"]
+    vip:
+      name: "&bVIP Pack"
+      material: DIAMOND_PICKAXE
+      permission: "nereus.kit.vip"
+      cooldown: 43200
+      lore: ["&7Khusus rank VIP+"]
+      commands: ["give {player} diamond 4", "give {player} golden_apple 2"]
+
+# ---------------- MENU ----------------
+menus:
+  filler: BLACK_STAINED_GLASS_PANE   # kosongkan "" untuk tanpa filler
+  back:
+    material: ARROW
+    name: "&cKembali"
+    lore: ["&7Kembali ke menu utama."]
+  main:
+    title: "&#7FDBFF&lNereus Throne"
+    rows: 5
+    items:
+      join:
+        slot: 10
+        material: LIME_DYE
+        name: "&aJoin Message"
+        lore: ["&7Pilih gaya pesan saat kamu masuk.", " ", "&eKlik untuk membuka"]
+        action: "menu:join"
+      leave:
+        slot: 11
+        material: RED_DYE
+        name: "&cLeave Message"
+        lore: ["&7Pilih gaya pesan saat kamu keluar.", " ", "&eKlik untuk membuka"]
+        action: "menu:leave"
+      afk:
+        slot: 12
+        material: CLOCK
+        name: "&eAFK & Reward"
+        lore: ["&7Atur AFK & lihat reward AFK.", " ", "&eKlik untuk membuka"]
+        action: "menu:afk"
+      daily:
+        slot: 13
+        material: SUNFLOWER
+        name: "&6Daily Reward"
+        lore: ["&7Klaim hadiah harian + streak.", " ", "&eKlik untuk membuka"]
+        action: "menu:daily"
+      kits:
+        slot: 14
+        material: CHEST
+        name: "&bKits"
+        lore: ["&7PlayerKits & kit khas Nereus.", " ", "&eKlik untuk membuka"]
+        action: "menu:kits"
+      info:
+        slot: 15
+        material: NETHER_STAR
+        name: "&dInfo"
+        lore: ["&7Tentang NereusThrone.", " ", "&eKlik untuk membuka"]
+        action: "menu:info"
+      # --- Link ke menu DeluxeMenus (ganti nama menu sesuai punyamu) ---
+      battle_royale:
+        slot: 28
+        material: DIAMOND_SWORD
+        name: "&cBattle Royale"
+        lore: ["&7Buka Battle Royale Menu."]
+        action: "player:dm open battle_royale"
+      kaiser_profile:
+        slot: 29
+        material: PLAYER_HEAD
+        name: "&6Kaiser Profile"
+        lore: ["&7Buka profil Kaiser."]
+        action: "player:dm open kaiser_profile"
+      kaiser_chronicle:
+        slot: 30
+        material: WRITABLE_BOOK
+        name: "&eKaiser Chronicle"
+        lore: ["&7Buka catatan Kaiser."]
+        action: "player:dm open kaiser_chronicle"
+      imperial_decree:
+        slot: 31
+        material: ENCHANTED_BOOK
+        name: "&5Imperial Decree"
+        lore: ["&7Buka dekrit kekaisaran."]
+        action: "player:dm open imperial_decree"
+      rules:
+        slot: 32
+        material: BOOK
+        name: "&fRules"
+        lore: ["&7Baca peraturan server."]
+        action: "player:dm open rules"
+      close:
+        slot: 40
+        material: BARRIER
+        name: "&cTutup"
+        lore: []
+        action: "close"
+  styles:
+    join-title: "&8Pilih Join Message"
+    leave-title: "&8Pilih Leave Message"
+    preview-label: "&8Preview:"
+    status-selected: "&a▶ Sedang dipakai"
+    status-available: "&e▶ Klik untuk memilih"
+    status-locked: "&c✖ Terkunci (butuh rank)"
+    hint: "&8Klik kanan = preview"
+  daily:
+    title: "&8Daily Reward"
+    day-name: "&eHari {day}"
+    reward-line: "&7Hadiah: &f{reward}"
+    claimed-material: LIME_STAINED_GLASS_PANE
+    status-claimed: "&a✔ Sudah diklaim"
+    status-ready: "&a▶ Siap diklaim! Klik"
+    status-wait: "&e⏳ Tunggu {time}"
+    status-locked: "&7Belum tersedia"
+    claim-ready: "&aKlaim Daily Sekarang"
+    claim-wait: "&cDaily belum siap"
+    claim-lore: ["&7Streak kamu: &f{streak} hari", "&7Cooldown: &f{time}"]
+  kits:
+    title: "&8Kits"
+    status-ready: "&a▶ Klik untuk klaim"
+    status-wait: "&e⏳ Cooldown {time}"
+    status-locked: "&c✖ Terkunci (butuh rank)"
+  afk:
+    title: "&8AFK & Reward"
+    toggle-on: "&aKamu sedang AFK &7(klik untuk kembali)"
+    toggle-off: "&eMasuk Mode AFK"
+    toggle-lore: ["&7Kamu juga bisa pakai:", "&f/afk <alasan>"]
+    reward-name: "&6Reward AFK"
+    reward-lore:
+      - "&7Tiap &f{interval} menit &7AFK kamu dapat:"
+      - "&8• &eUang &f${base} &7(naik +${increment}/tahap, maks ${max})"
+      - "&8• &dKey acak &7peluang &f{chance}%"
+      - "&7Pool key: &f{pool}"
+  info:
+    title: "&8Info"
+    name: "&bNereusThrone"
+    lines: ["&7Join/Leave custom, AFK reward,", "&7Daily, Kits & menu server."]
+
+# ---------------- PESAN ----------------
+messages:
+  no-permission: "&cKamu tidak punya izin."
+  reloaded: "&aConfig dimuat ulang."
+  style-selected: "&aStyle dipilih: &f{style}"
+  style-locked: "&cStyle ini terkunci. Kamu butuh rank yang sesuai."
+  afk-on: "&e{player} &7sekarang AFK &8» &f{reason}"
+  afk-auto: "&e{player} &7otomatis AFK &8» &f{reason}"
+  afk-off: "&e{player} &7kembali dari AFK &8(&f{time}&8)"
+  afk-reward-money: "&aReward AFK tahap {stage}: &e${money}"
+  afk-reward-key: "&aReward AFK tahap {stage}: &dKey {crate}"
+  daily-wait: "&cDaily belum siap. Tunggu &f{time}"
+  daily-claimed: "&aDaily hari ke-&f{day} &adiklaim! &7Streak &f{streak} &8| &f{reward}"
+  kit-locked: "&cKit ini terkunci."
+  kit-wait: "&cKit cooldown, tunggu &f{time}"
+  kit-claimed: "&aKit &f{kit} &adiklaim!"
